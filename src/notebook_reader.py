@@ -46,8 +46,9 @@ def read_notebook(ipynb_path: str, max_cell_chars: int = 8000) -> str:
 
 # Petit test local
 if __name__ == "__main__":
-    notebook_path = "notebooks/notebook_1_test.ipynb"
-    output_path = "outputs/notebook_1_test_clean.txt"
+    nom_notebook = "mlflow-end-to-end-ml-models"
+    notebook_path = "notebooks/"+nom_notebook+".ipynb"
+    output_path = "outputs/"+nom_notebook+"_clean.txt"
 
     content = read_notebook(notebook_path)
 
