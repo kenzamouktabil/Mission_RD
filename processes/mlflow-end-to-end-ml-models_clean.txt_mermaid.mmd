@@ -1,0 +1,94 @@
+flowchart LR
+  subgraph Plan
+    P1[Define_Objectives]
+    P2[Set_Experiment_Plan]
+    P3[Create_Params_Object]
+  end
+
+  subgraph Software_Engineer
+    S1[Install_Packages]
+    S2[Import_Libraries]
+    S3[Enable_MLflow_Autolog]
+    S4[Launch_MLflow_UI_Process]
+    S5[Configure_Ngrok_Tunnel]
+    S6[Walk_Filesystem_for_Models]
+  end
+
+  subgraph Data_Engineer
+    D1[Download_MNIST_Dataset]
+    D2[Apply_Transforms_and_Normalize]
+    D3[Create_Train_Test_Sets]
+    D4[Create_DataLoaders]
+  end
+
+  subgraph Model_Engineer
+    M1[Define_Model_Architecture]
+    M2[Define_Loss_Function]
+    M3[Define_Optimizer]
+    M4[Hyperparameter_Tuning_Loop]
+    M5[Train_Model]
+    M6[Evaluate_Model]
+    M7[Compute_Confusion_Matrix]
+    M8[Log_Params_and_Metrics]
+    M9[Log_Image_Artifacts]
+    M10[Save_Model_with_mlflow]
+    M11[Load_Model_with_mlflow]
+    M12[Visualize_Model_Weights]
+  end
+
+  subgraph Ops_Engineer
+    O1[Set_mlflow_Experiment]
+    O2[Start_MLflow_UI]
+    O3[Expose_UI_via_Ngrok]
+    O4[Experiment_Tracking_start_run]
+    O5[Model_Persistence_mlflow_log_model]
+    O6[Artifact_Storage_mlruns]
+  end
+
+  %% Plan to setup
+  P1 --> P2 --> P3
+
+  %% Software env setup
+  P3 --> S1
+  S1 --> S2 --> S3
+  S2 --> S5
+  S3 --> S4
+  S4 --> O2
+  S5 --> O3
+  O2 --> O6
+
+  %% Data preparation flow
+  P3 --> D1
+  D1 --> D2 --> D3 --> D4
+
+  %% Model definition and training prep
+  D4 --> M1
+  M1 --> M2 --> M3
+  P3 --> O1
+  O1 --> M4
+
+  %% Hyperparameter tuning loop triggers runs
+  M4 --> O4
+  O4 --> M5
+  M5 --> M6
+  M6 --> M7
+  M6 --> M8
+  M7 --> M9
+
+  %% Logging and persistence
+  M8 --> O5
+  M9 --> O5
+  O5 --> O6
+  O4 --> O6
+
+  %% Save model via mlflow and further analysis
+  M5 --> M10
+  M10 --> O5
+  O6 --> S6
+  S6 --> M11
+  M11 --> M12
+
+  %% Additional links
+  S3 --> O4
+  M4 --> M5
+  M6 --> M12
