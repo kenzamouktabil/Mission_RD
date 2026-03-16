@@ -1,0 +1,89 @@
+graph TD
+  subgraph Plan
+    Objectives[Define_Project_Objectives]
+    Define_Params[Define_Experiment_Parameters]
+    Document_Notebook[Document_Notebook_and_Objectives]
+    Set_Experiment_Name[Set_MLflow_Experiment_Name]
+  end
+
+  subgraph Software_Engineer
+    Install_Dependencies[Install_Dependencies_pip]
+    Import_Libraries[Import_Libraries_and_Packages]
+    Start_mlflow_autolog[Enable_MLflow_Autolog]
+  end
+
+  subgraph Ops_Engineer
+    Start_MLflow_UI[Start_MLflow_UI_Server]
+    Setup_ngrok_Tunnel[Setup_Ngrok_Tunnel]
+    Configure_MLflow_Experiment[Configure_MLflow_Tracking_and_Artifact_Location]
+    Artifact_Storage[Artifact_and_Model_Persistence_in_MLRuns]
+  end
+
+  subgraph Data_Engineer
+    Download_Dataset[Download_MNIST_Dataset]
+    Data_Transform_Normalize[Apply_Transforms_and_Normalization]
+    Create_DataLoaders[Create_Train_Test_DataLoaders]
+  end
+
+  subgraph Model_Engineer
+    Define_Model_Architecture[Define_Neural_Network_Model]
+    Define_Loss_And_Optimizer[Define_Loss_Function_and_Optimizer]
+    Hyperparameter_Tuning_Loop[Run_Hyperparameter_Tuning_Loop]
+    Train_Function[Training_Loop_Function]
+    Test_Function[Evaluation_Function]
+    Log_Params_Metrics[Log_Params_and_Metrics_with_MLflow]
+    Log_Model_To_MLflow[Log_and_Save_Model_with_MLflow]
+    Load_Model_From_MLflow[Load_Model_from_MLflow_for_Analysis]
+    Model_Evaluation[Model_Evaluation_and_Metrics]
+    Visualize_Weights_And_ConfusionMatrix[Visualize_Weights_and_Confusion_Matrix]
+  end
+
+  %% Plan to Software
+  Objectives --> Define_Params
+  Define_Params --> Document_Notebook
+  Document_Notebook --> Set_Experiment_Name
+  Set_Experiment_Name --> Install_Dependencies
+
+  %% Software setup
+  Install_Dependencies --> Import_Libraries
+  Import_Libraries --> Start_mlflow_autolog
+
+  %% Software to Ops
+  Import_Libraries --> Start_MLflow_UI
+  Start_mlflow_autolog --> Configure_MLflow_Experiment
+
+  %% Ops setup
+  Start_MLflow_UI --> Setup_ngrok_Tunnel
+  Setup_ngrok_Tunnel --> Configure_MLflow_Experiment
+  Configure_MLflow_Experiment --> Artifact_Storage
+
+  %% Ops to Data
+  Configure_MLflow_Experiment --> Download_Dataset
+
+  %% Data processing flow
+  Download_Dataset --> Data_Transform_Normalize
+  Data_Transform_Normalize --> Create_DataLoaders
+
+  %% Data to Model
+  Create_DataLoaders --> Define_Model_Architecture
+  Define_Model_Architecture --> Define_Loss_And_Optimizer
+
+  %% Experiment loop
+  Define_Loss_And_Optimizer --> Hyperparameter_Tuning_Loop
+  Hyperparameter_Tuning_Loop --> Train_Function
+  Hyperparameter_Tuning_Loop --> Test_Function
+  Train_Function --> Log_Params_Metrics
+  Test_Function --> Log_Params_Metrics
+
+  %% Logging and persistence
+  Log_Params_Metrics --> Log_Model_To_MLflow
+  Log_Model_To_MLflow --> Artifact_Storage
+  Artifact_Storage --> Load_Model_From_MLflow
+
+  %% Post training analysis
+  Load_Model_From_MLflow --> Model_Evaluation
+  Model_Evaluation --> Visualize_Weights_And_ConfusionMatrix
+
+  %% Iteration loop
+  Visualize_Weights_And_ConfusionMatrix --> Define_Params
+  Visualize_Weights_And_ConfusionMatrix --> Hyperparameter_Tuning_Loop

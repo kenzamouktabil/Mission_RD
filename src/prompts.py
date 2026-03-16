@@ -92,14 +92,20 @@ messages = [
     {"role": "system", "content": "You are an AI specialized in analyzing Jupyter Notebooks."},
     {"role": "user", "content": prompt + "\n\n" + file_content}
 ]
-response = client.chat.completions.create(
-    model="gpt-5-mini",
-    messages=messages
-)
-mermaid_code = response.choices[0].message.content
-print(mermaid_code)
 output_file = "../processes/"+nom_fichier+"_mermaid"+".mmd"
-with open(output_file, "w", encoding="utf-8") as f:
-    f.write(mermaid_code)
+if os.path.exists(output_file):
+    with open(output_file, "r", encoding="utf-8") as f:
+        mermaid_code = f.read()
+else :
+    response = client.chat.completions.create(
+        model="gpt-5-mini",
+        messages=messages,
+        seed = 42
+    )
+    mermaid_code = response.choices[0].message.content
+    print(mermaid_code)
+
+    with open(output_file, "w", encoding="utf-8") as f:
+        f.write(mermaid_code)
 
 print(f"Mermaid diagram saved to {output_file}")

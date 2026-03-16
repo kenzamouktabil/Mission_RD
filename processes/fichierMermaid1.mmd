@@ -1,0 +1,93 @@
+graph LR
+  %% Plan
+  subgraph Plan
+    Plan_Objectives[Introduction_and_Objectives]
+    Plan_Create_Params[Define_Params_and_Experiment_Plan]
+    Plan_Setup_Hyperparam_Strategy[Hyperparameter_Tuning_Plan]
+  end
+
+  %% Software Engineer
+  subgraph Software_Engineer
+    SW_Install_Packages[Install_Packages]
+    SW_Import_Libraries[Import_Libraries]
+    SW_Start_MLflow_UI[Start_MLflow_UI_Process]
+    SW_Setup_Ngrok[Setup_Ngrok_and_Set_Auth_Token]
+    SW_Start_Autolog[Enable_MLflow_Pytorch_Autolog]
+  end
+
+  %% Data Engineer
+  subgraph Data_Engineer
+    Data_Download_MNIST[Download_MNIST_Dataset]
+    Data_Apply_Transforms[Apply_Transforms_Normalize]
+    Data_Create_DataLoaders[Create_Train_Test_DataLoaders]
+  end
+
+  %% Model Engineer
+  subgraph Model_Engineer
+    Model_Definition[Define_Model_Architecture]
+    Model_Loss_Optimizer[Define_Loss_and_Optimizer]
+    Model_Train_Function[Train_Function_with_Logging]
+    Model_Test_Function[Test_Function_Evaluate_Metrics]
+    Model_Confusion_Matrix[Compute_Confusion_Matrix]
+    Model_Hyperparam_Loop[Hyperparameter_Tuning_Loop]
+    Model_Inspect_Weights[Inspect_Loaded_Model_Weights]
+    Model_Visualizations[Plot_Weight_Distributions_and_Heatmaps]
+  end
+
+  %% Ops Engineer
+  subgraph Ops_Engineer
+    Ops_Set_Experiment[Set_MLflow_Experiment]
+    Ops_Start_Run[Start_MLflow_Run]
+    Ops_Log_Params[Log_Parameters]
+    Ops_Log_Metrics[Log_Metrics]
+    Ops_Log_Artifacts[Log_Image_Artifacts]
+    Ops_Log_Model[Log_and_Save_Model_via_MLflow]
+    Ops_Save_MLRuns[Persist_Model_and_Artifacts_in_MLRuns]
+    Ops_Expose_UI[Expose_MLflow_UI_via_Ngrok]
+    Ops_Load_Model[Load_Model_From_MLRuns]
+  end
+
+  %% Plan flows
+  Plan_Objectives --> Plan_Create_Params
+  Plan_Create_Params --> Data_Download_MNIST
+  Plan_Create_Params --> Model_Hyperparam_Loop
+  Plan_Setup_Hyperparam_Strategy --> Model_Hyperparam_Loop
+
+  %% Software flows
+  SW_Install_Packages --> SW_Import_Libraries
+  SW_Import_Libraries --> SW_Start_MLflow_UI
+  SW_Start_MLflow_UI --> SW_Setup_Ngrok
+  SW_Setup_Ngrok --> Ops_Expose_UI
+  SW_Start_MLflow_UI --> SW_Start_Autolog
+  SW_Start_Autolog --> Ops_Set_Experiment
+
+  %% Data flows
+  Data_Download_MNIST --> Data_Apply_Transforms
+  Data_Apply_Transforms --> Data_Create_DataLoaders
+  Data_Create_DataLoaders --> Model_Definition
+
+  %% Model flows
+  Model_Definition --> Model_Loss_Optimizer
+  Model_Loss_Optimizer --> Model_Hyperparam_Loop
+  Model_Hyperparam_Loop --> Ops_Start_Run
+  Ops_Start_Run --> Ops_Log_Params
+  Ops_Log_Params --> Ops_Log_Metrics
+  Model_Hyperparam_Loop --> Model_Train_Function
+  Model_Train_Function --> Ops_Log_Metrics
+  Model_Train_Function --> Model_Test_Function
+  Model_Test_Function --> Model_Confusion_Matrix
+  Model_Test_Function --> Ops_Log_Metrics
+  Model_Test_Function --> Model_Visualizations
+  Model_Hyperparam_Loop --> Ops_Log_Model
+  Ops_Log_Model --> Ops_Save_MLRuns
+  Ops_Save_MLRuns --> Ops_Load_Model
+  Ops_Load_Model --> Model_Inspect_Weights
+  Model_Inspect_Weights --> Model_Visualizations
+
+  %% Cross dimension links
+  Plan_Create_Params --> SW_Install_Packages
+  SW_Start_Autolog --> Ops_Start_Run
+  Ops_Set_Experiment --> Ops_Start_Run
+  Data_Create_DataLoaders --> Model_Train_Function
+  Ops_Expose_UI --> Ops_Set_Experiment
+  Ops_Save_MLRuns --> Ops_Expose_UI
