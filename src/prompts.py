@@ -92,7 +92,7 @@ messages = [
     {"role": "system", "content": "You are an AI specialized in analyzing Jupyter Notebooks."},
     {"role": "user", "content": prompt + "\n\n" + file_content}
 ]
-output_file = "../processes/"+nom_fichier+"_mermaid"+".mmd"
+output_file = "../processes_mermaid/"+nom_fichier+"_mermaid"+".mmd"
 if os.path.exists(output_file):
     with open(output_file, "r", encoding="utf-8") as f:
         mermaid_code = f.read()

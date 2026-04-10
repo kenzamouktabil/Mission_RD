@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions 
+  xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+  xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+  xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+  id="Definitions_1">
+  
+  <bpmn:process id="Process_1" isExecutable="false">
+
+    <bpmn:laneSet id="LaneSet_1">
+
+      <bpmn:lane id="Lane_Data_Engineer" name="Data Engineer">
+        <bpmn:flowNodeRef>StartEvent_1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_2</bpmn:flowNodeRef>
+      </bpmn:lane>
+
+      <bpmn:lane id="Lane_Model_Engineer" name="Model Engineer">
+        <bpmn:flowNodeRef>Task_3</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_4</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_5</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_6</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_7</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_8</bpmn:flowNodeRef>
+      </bpmn:lane>
+
+      <bpmn:lane id="Lane_Software_Engineer" name="Software Engineer">
+        <bpmn:flowNodeRef>Task_9</bpmn:flowNodeRef>
+      </bpmn:lane>
+
+      <bpmn:lane id="Lane_Ops_Engineer" name="Ops Engineer">
+        <bpmn:flowNodeRef>Task_10</bpmn:flowNodeRef>
+      </bpmn:lane>
+
+    </bpmn:laneSet>
+
+    <bpmn:startEvent id="StartEvent_1"/>
+    
+    <bpmn:task id="Task_1" name="Install MLFlow and Pyngrok"/>
+    <bpmn:task id="Task_2" name="Set up MLFlow UI"/>
+    <bpmn:task id="Task_3" name="Set experiment and Hyperparameter tuning"/>
+    <bpmn:task id="Task_4" name="Train model"/>
+    <bpmn:task id="Task_5" name="Test model"/>
+    <bpmn:task id="Task_6" name="Log metrics and parameters"/>
+    <bpmn:task id="Task_7" name="Log model artifacts"/>
+    <bpmn:task id="Task_8" name="Load and visualize model"/>
+    <bpmn:task id="Task_9" name="Log Weights visualizations"/>
+    <bpmn:task id="Task_10" name="End Process"/>
+
+    <bpmn:endEvent id="EndEvent_1"/>
+    
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="StartEvent_1" targetRef="Task_1"/>
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Task_1" targetRef="Task_2"/>
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="Task_2" targetRef="Task_3"/>
+    <bpmn:sequenceFlow id="Flow_4" sourceRef="Task_3" targetRef="Task_4"/>
+    <bpmn:sequenceFlow id="Flow_5" sourceRef="Task_4" targetRef="Task_5"/>
+    <bpmn:sequenceFlow id="Flow_6" sourceRef="Task_5" targetRef="Task_6"/>
+    <bpmn:sequenceFlow id="Flow_7" sourceRef="Task_6" targetRef="Task_7"/>
+    <bpmn:sequenceFlow id="Flow_8" sourceRef="Task_7" targetRef="Task_8"/>
+    <bpmn:sequenceFlow id="Flow_9" sourceRef="Task_8" targetRef="Task_9"/>
+    <bpmn:sequenceFlow id="Flow_10" sourceRef="Task_9" targetRef="Task_10"/>
+    <bpmn:sequenceFlow id="Flow_11" sourceRef="Task_10" targetRef="EndEvent_1"/>
+
+  </bpmn:process>
+
+  <bpmndi:BPMNDiagram id="Diagram_1">
+    <bpmndi:BPMNPlane id="Plane_1" bpmnElement="Process_1">
+
+      <bpmndi:BPMNShape id="Shape_StartEvent_1" bpmnElement="StartEvent_1">
+        <dc:Bounds x="150" y="100" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+      
+      <bpmndi:BPMNShape id="Shape_Task_1" bpmnElement="Task_1">
+        <dc:Bounds x="300" y="80" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+      
+      <bpmndi:BPMNShape id="Shape_Task_2" bpmnElement="Task_2">
+        <dc:Bounds x="500" y="80" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="Shape_Task_3" bpmnElement="Task_3">
+        <dc:Bounds x="700" y="80" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+      
+      <bpmndi:BPMNShape id="Shape_Task_4" bpmnElement="Task_4">
+        <dc:Bounds x="900" y="80" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+      
+      <bpmndi:BPMNShape id="Shape_Task_5" bpmnElement="Task_5">
+        <dc:Bounds x="1100" y="80" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+      
+      <bpmndi:BPMNShape id="Shape_Task_6" bpmnElement="Task_6">
+        <dc:Bounds x="1300" y="80" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="Shape_Task_7" bpmnElement="Task_7">
+        <dc:Bounds x="1500" y="80" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="Shape_Task_8" bpmnElement="Task_8">
+        <dc:Bounds x="1700" y="80" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="Shape_Task_9" bpmnElement="Task_9">
+        <dc:Bounds x="1900" y="80" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="Shape_Task_10" bpmnElement="Task_10">
+        <dc:Bounds x="2100" y="80" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="Shape_EndEvent_1" bpmnElement="EndEvent_1">
+        <dc:Bounds x="2300" y="100" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="Shape_Lane_Data_Engineer" bpmnElement="Lane_Data_Engineer">
+        <dc:Bounds x="0" y="70" width="1400" height="120"/>
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="Shape_Lane_Model_Engineer" bpmnElement="Lane_Model_Engineer">
+        <dc:Bounds x="0" y="190" width="1400" height="120"/>
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="Shape_Lane_Software_Engineer" bpmnElement="Lane_Software_Engineer">
+        <dc:Bounds x="0" y="310" width="1400" height="120"/>
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="Shape_Lane_Ops_Engineer" bpmnElement="Lane_Ops_Engineer">
+        <dc:Bounds x="0" y="430" width="1400" height="120"/>
+      </bpmndi:BPMNShape>
+
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
