@@ -1,0 +1,18 @@
+flowchart TD
+  subgraph Plan
+    Formulate_ML_Problem_C1["Formulate ML Problem"]
+  end
+  subgraph Data_Engineer
+    Ingest_Data_C4["Ingest Data"]
+    Analyze_Data_C6["Analyze Data"]
+    Preprocess_Data_C8["Preprocess Data"]
+    Preprocess_Data_C10["Preprocess Data"]
+  end
+  subgraph Model_Engineer
+    Train_Model_C12["Train Model"]
+    Tune_Model_C14["Tune Model"]
+    Evaluate_and_Test_Model_C16["Evaluate and Test Model"]
+    Register_Model_C18["Register Model"]
+  end
+
+  Formulate_ML_Problem_C1 --> Ingest_Data_C4 --> Analyze_Data_C6 --> Preprocess_Data_C8 --> Preprocess_Data_C10 --> Train_Model_C12 --> Tune_Model_C14 --> Evaluate_and_Test_Model_C16 --> Register_Model_C18

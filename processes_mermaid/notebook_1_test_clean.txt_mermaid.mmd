@@ -1,0 +1,19 @@
+flowchart TD
+  subgraph Data_Engineer["Data Engineer"]
+    Ingest_Data_C3["Ingest Data"]
+    Ingest_Data_C5["Ingest Data"]
+    Preprocess_Data_C5["Preprocess Data"]
+    Engineer_Features_C6["Engineer Features"]
+  end
+
+  subgraph Model_Engineer["Model Engineer"]
+    Register_Model_C9["Register Model"]
+    Evaluate_and_Test_Model_C12["Evaluate and Test Model"]
+    Evaluate_and_Test_Model_C17["Evaluate and Test Model"]
+  end
+
+  subgraph Ops_Engineer["Ops Engineer"]
+    Serve_Inference_C11["Serve Inference"]
+  end
+
+  Ingest_Data_C3 --> Ingest_Data_C5 --> Preprocess_Data_C5 --> Engineer_Features_C6 --> Register_Model_C9 --> Serve_Inference_C11 --> Evaluate_and_Test_Model_C12 --> Evaluate_and_Test_Model_C17

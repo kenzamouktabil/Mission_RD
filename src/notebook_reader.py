@@ -46,16 +46,18 @@ def read_notebook(ipynb_path: str, max_cell_chars: int = 8000) -> str:
 
 # Petit test local
 if __name__ == "__main__":
-    nom_notebook = "mlflow-end-to-end-ml-models"
-    notebook_path = "notebooks/"+nom_notebook+".ipynb"
-    output_path = "outputs/"+nom_notebook+"_clean.txt"
+    # Racine du projet = dossier parent de src/
+    PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
-    content = read_notebook(notebook_path)
+    nom_notebook = "notebook_2_iris_classification"
+    notebook_path = PROJECT_ROOT / "notebooks" / f"{nom_notebook}.ipynb"
+    output_path = PROJECT_ROOT / "outputs" / f"{nom_notebook}_clean.txt"
+
+    content = read_notebook(str(notebook_path))
 
     # Créer le dossier outputs si pas existant
-    Path("outputs").mkdir(exist_ok=True)
+    output_path.parent.mkdir(exist_ok=True)
 
-    # Sauvegarder dans un fichier
     with open(output_path, "w", encoding="utf-8") as f:
         f.write(content)
 

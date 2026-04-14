@@ -1,13 +1,15 @@
 from dotenv import load_dotenv
 import os
+from pathlib import Path
 from openai import OpenAI
 
-load_dotenv(dotenv_path="../.env")
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+load_dotenv(dotenv_path=PROJECT_ROOT / ".env")
 key = os.getenv("OPENAI_API_KEY")
 
-nom_fichier_sans_extension = "mlflow-end-to-end-ml-models_clean"
+nom_fichier_sans_extension = "notebook_1_test_clean"
 nom_fichier = nom_fichier_sans_extension + ".txt"
-input_file = '../outputs/'+nom_fichier
+input_file = PROJECT_ROOT / "outputs" / nom_fichier
 with open(input_file, "r", encoding="utf-8") as f:
     file_content = f.read()
 
@@ -277,8 +279,8 @@ messages = [
     {"role": "user", "content": prompt + "\n\n" + file_content}
 ]
 
-output_file = "../processes_bpmn/"+nom_fichier_sans_extension+"_bpmn"+".bpmn"
-
+output_file = PROJECT_ROOT / "processes_bpmn" / f"{nom_fichier_sans_extension}_bpmn.bpmn"
+output_file.parent.mkdir(exist_ok=True)
 if os.path.exists(output_file):
     with open(output_file, "r", encoding="utf-8") as f:
         bpmn_code = f.read()
