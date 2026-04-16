@@ -270,7 +270,7 @@ def build_bpmn(lanes, nodes, edges) -> str:
 
 
 def main():
-    nom_fichier = sys.argv[1] if len(sys.argv) > 1 else "notebook_1_test_clean.txt"
+    nom_fichier = sys.argv[1] if len(sys.argv) > 1 else "mlops_clean.txt"
     mermaid_file = PROJECT_ROOT / "processes_mermaid" / f"{nom_fichier}_mermaid.mmd"
     bpmn_file = PROJECT_ROOT / "processes_bpmn" / f"{nom_fichier}_bpmn.bpmn"
     bpmn_file.parent.mkdir(exist_ok=True)

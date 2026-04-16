@@ -1,0 +1,24 @@
+flowchart LR
+subgraph Plan_Product_Owner
+Conceptualize_Project_C7[Conceptualize Project]
+Define_Requirements_C7[Define Requirements]
+end
+
+subgraph Data_Engineer
+Ingest_Data_C3[Ingest Data]
+Engineer_Features_C5[Engineer Features]
+Preprocess_Data_C6[Preprocess Data]
+Engineer_Features_C6[Engineer Features]
+Engineer_Features_C10[Engineer Features]
+Analyze_Data_C8[Analyze Data]
+Analyze_Data_C11[Analyze Data]
+end
+
+Ingest_Data_C3 --> Engineer_Features_C5
+Engineer_Features_C5 --> Preprocess_Data_C6
+Preprocess_Data_C6 --> Engineer_Features_C6
+Engineer_Features_C6 --> Conceptualize_Project_C7
+Conceptualize_Project_C7 --> Define_Requirements_C7
+Define_Requirements_C7 --> Analyze_Data_C8
+Analyze_Data_C8 --> Engineer_Features_C10
+Engineer_Features_C10 --> Analyze_Data_C11

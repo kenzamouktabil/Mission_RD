@@ -7,7 +7,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 load_dotenv(dotenv_path=PROJECT_ROOT / ".env")
 key = os.getenv("OPENAI_API_KEY")
 
-nom_fichier_sans_extension = "notebook_1_test_clean"
+nom_fichier_sans_extension = "data-science-and-mlops-landscape-in-industry_clean"
 nom_fichier = nom_fichier_sans_extension + ".txt"
 input_file = PROJECT_ROOT / "outputs" / nom_fichier
 with open(input_file, "r", encoding="utf-8") as f:

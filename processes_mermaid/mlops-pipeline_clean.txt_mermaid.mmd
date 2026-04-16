@@ -1,0 +1,40 @@
+flowchart LR
+subgraph Data_Engineer
+Ingest_Data_C5[Ingest Data]
+Preprocess_Data_C6_7[Preprocess Data]
+Engineer_Features_C8[Engineer Features]
+Preprocess_Data_C15[Preprocess Data]
+end
+
+subgraph Model_Engineer
+Design_Model_C8[Design Model]
+Train_Model_C11[Train Model]
+Train_Model_C16[Train Model]
+Train_Model_C17[Train Model]
+Evaluate_and_Test_Model_C13[Evaluate and Test Model]
+Evaluate_and_Test_Model_C18[Evaluate and Test Model]
+end
+
+subgraph Ops_Engineer
+Serve_Inference_C12[Serve Inference]
+Serve_Inference_C18[Serve Inference]
+Serve_Inference_C20[Serve Inference]
+end
+
+subgraph Software_Engineer
+Release_Solution_C20[Release Solution]
+end
+
+Ingest_Data_C5 --> Preprocess_Data_C6_7
+Preprocess_Data_C6_7 --> Engineer_Features_C8
+Engineer_Features_C8 --> Design_Model_C8
+Design_Model_C8 --> Train_Model_C11
+Train_Model_C11 --> Serve_Inference_C12
+Serve_Inference_C12 --> Evaluate_and_Test_Model_C13
+Evaluate_and_Test_Model_C13 --> Preprocess_Data_C15
+Preprocess_Data_C15 --> Train_Model_C16
+Train_Model_C16 --> Train_Model_C17
+Train_Model_C17 --> Serve_Inference_C18
+Serve_Inference_C18 --> Evaluate_and_Test_Model_C18
+Evaluate_and_Test_Model_C18 --> Serve_Inference_C20
+Serve_Inference_C20 --> Release_Solution_C20
