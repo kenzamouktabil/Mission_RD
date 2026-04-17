@@ -1,0 +1,36 @@
+flowchart LR
+  subgraph Data_Engineer["Data Engineer"]
+    Ingest_Data_C3[Ingest Data]
+    Preprocess_Data_C4[Preprocess Data]
+    Engineer_Features_C5[Engineer Features]
+    Validate_Data_C6[Validate Data]
+    Analyze_Data_C8[Analyze Data]
+    Preprocess_Data_C11[Preprocess Data]
+    Preprocess_Data_C21[Preprocess Data]
+  end
+
+  subgraph Model_Engineer["Model Engineer"]
+    Train_Model_C16[Train Model]
+    Evaluate_and_Test_Model_C16[Evaluate and Test Model]
+    Register_Model_C16[Register Model]
+
+    Train_Model_C18[Train Model]
+    Evaluate_and_Test_Model_C18[Evaluate and Test Model]
+    Evaluate_and_Test_Model_C19[Evaluate and Test Model]
+    Register_Model_C19[Register Model]
+
+    Train_Model_C21[Train Model]
+    Evaluate_and_Test_Model_C21[Evaluate and Test Model]
+    Register_Model_C21[Register Model]
+
+    Design_Model_C23[Design Model]
+    Train_Model_C24[Train Model]
+    Evaluate_and_Test_Model_C25[Evaluate and Test Model]
+    Evaluate_and_Test_Model_C26[Evaluate and Test Model]
+    Register_Model_C26[Register Model]
+
+    Evaluate_and_Test_Model_C28[Evaluate and Test Model]
+    Register_Model_C33[Register Model]
+  end
+
+  Ingest_Data_C3 --> Preprocess_Data_C4 --> Engineer_Features_C5 --> Validate_Data_C6 --> Analyze_Data_C8 --> Preprocess_Data_C11 --> Train_Model_C16 --> Evaluate_and_Test_Model_C16 --> Register_Model_C16 --> Train_Model_C18 --> Evaluate_and_Test_Model_C18 --> Evaluate_and_Test_Model_C19 --> Register_Model_C19 --> Preprocess_Data_C21 --> Train_Model_C21 --> Evaluate_and_Test_Model_C21 --> Register_Model_C21 --> Design_Model_C23 --> Train_Model_C24 --> Evaluate_and_Test_Model_C25 --> Evaluate_and_Test_Model_C26 --> Register_Model_C26 --> Evaluate_and_Test_Model_C28 --> Register_Model_C33

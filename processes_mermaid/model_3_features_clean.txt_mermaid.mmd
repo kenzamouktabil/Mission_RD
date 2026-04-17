@@ -1,0 +1,13 @@
+flowchart LR
+  subgraph Data_Engineer
+    Ingest_Data_C3[Ingest Data]
+    Engineer_Features_C4[Engineer Features]
+    Preprocess_Data_C5[Preprocess Data]
+  end
+
+  subgraph Model_Engineer
+    Train_Model_C6[Train Model]
+    Evaluate_and_Test_Model_C6_9[Evaluate and Test Model]
+  end
+
+  Ingest_Data_C3 --> Engineer_Features_C4 --> Preprocess_Data_C5 --> Train_Model_C6 --> Evaluate_and_Test_Model_C6_9

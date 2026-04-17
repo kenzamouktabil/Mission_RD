@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='utf-8'?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn">
+  <bpmn:process id="Process_1" isExecutable="false">
+    <bpmn:laneSet id="LaneSet_1">
+      <bpmn:lane id="Lane_1" name="Data Engineer">
+        <bpmn:flowNodeRef>StartEvent_1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Ingest_Data_C4</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Analyze_Data_C6</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Preprocess_Data_C8</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_2" name="Model Engineer">
+        <bpmn:flowNodeRef>Train_Model_C12</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Tune_Model_C14</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Evaluate_and_Test_Model_C16</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Register_Model_C18</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_1</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="StartEvent_1" />
+    <bpmn:endEvent id="EndEvent_1" />
+    <bpmn:task id="Ingest_Data_C4" name="Ingest_Data" />
+    <bpmn:task id="Analyze_Data_C6" name="Analyze_Data" />
+    <bpmn:task id="Preprocess_Data_C8" name="Preprocess_Data" />
+    <bpmn:task id="Train_Model_C12" name="Train_Model" />
+    <bpmn:task id="Tune_Model_C14" name="Tune_Model" />
+    <bpmn:task id="Evaluate_and_Test_Model_C16" name="Evaluate_and_Test_Model" />
+    <bpmn:task id="Register_Model_C18" name="Register_Model" />
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="StartEvent_1" targetRef="Ingest_Data_C4" />
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Ingest_Data_C4" targetRef="Analyze_Data_C6" />
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="Analyze_Data_C6" targetRef="Preprocess_Data_C8" />
+    <bpmn:sequenceFlow id="Flow_4" sourceRef="Preprocess_Data_C8" targetRef="Train_Model_C12" />
+    <bpmn:sequenceFlow id="Flow_5" sourceRef="Train_Model_C12" targetRef="Tune_Model_C14" />
+    <bpmn:sequenceFlow id="Flow_6" sourceRef="Tune_Model_C14" targetRef="Evaluate_and_Test_Model_C16" />
+    <bpmn:sequenceFlow id="Flow_7" sourceRef="Evaluate_and_Test_Model_C16" targetRef="Register_Model_C18" />
+    <bpmn:sequenceFlow id="Flow_8" sourceRef="Register_Model_C18" targetRef="EndEvent_1" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="Diagram_1">
+    <bpmndi:BPMNPlane id="Plane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="Lane_1_di" bpmnElement="Lane_1" isHorizontal="true">
+        <dc:Bounds x="160" y="80" width="1560" height="160" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_2_di" bpmnElement="Lane_2" isHorizontal="true">
+        <dc:Bounds x="160" y="240" width="1560" height="160" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="170" y="142" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Ingest_Data_C4_di" bpmnElement="Ingest_Data_C4">
+        <dc:Bounds x="220" y="120" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Analyze_Data_C6_di" bpmnElement="Analyze_Data_C6">
+        <dc:Bounds x="380" y="120" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Preprocess_Data_C8_di" bpmnElement="Preprocess_Data_C8">
+        <dc:Bounds x="540" y="120" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Train_Model_C12_di" bpmnElement="Train_Model_C12">
+        <dc:Bounds x="700" y="280" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Tune_Model_C14_di" bpmnElement="Tune_Model_C14">
+        <dc:Bounds x="860" y="280" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Evaluate_and_Test_Model_C16_di" bpmnElement="Evaluate_and_Test_Model_C16">
+        <dc:Bounds x="1020" y="280" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Register_Model_C18_di" bpmnElement="Register_Model_C18">
+        <dc:Bounds x="1180" y="280" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1_di" bpmnElement="EndEvent_1">
+        <dc:Bounds x="1380" y="302" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1_di" bpmnElement="Flow_1">
+        <di:waypoint x="206" y="160" />
+        <di:waypoint x="220" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_2_di" bpmnElement="Flow_2">
+        <di:waypoint x="340" y="160" />
+        <di:waypoint x="380" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_3_di" bpmnElement="Flow_3">
+        <di:waypoint x="500" y="160" />
+        <di:waypoint x="540" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_4_di" bpmnElement="Flow_4">
+        <di:waypoint x="660" y="160" />
+        <di:waypoint x="700" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_5_di" bpmnElement="Flow_5">
+        <di:waypoint x="820" y="320" />
+        <di:waypoint x="860" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_6_di" bpmnElement="Flow_6">
+        <di:waypoint x="980" y="320" />
+        <di:waypoint x="1020" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_7_di" bpmnElement="Flow_7">
+        <di:waypoint x="1140" y="320" />
+        <di:waypoint x="1180" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_8_di" bpmnElement="Flow_8">
+        <di:waypoint x="1300" y="320" />
+        <di:waypoint x="1380" y="320" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

@@ -1,0 +1,276 @@
+<?xml version='1.0' encoding='utf-8'?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn">
+  <bpmn:process id="Process_1" isExecutable="false">
+    <bpmn:laneSet id="LaneSet_1">
+      <bpmn:lane id="Lane_1" name="Data Engineer">
+        <bpmn:flowNodeRef>StartEvent_1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Ingest_Data_C3</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Preprocess_Data_C4</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Engineer_Features_C5</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Validate_Data_C6</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Analyze_Data_C8</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Preprocess_Data_C11</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Preprocess_Data_C21</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_2" name="Model Engineer">
+        <bpmn:flowNodeRef>Train_Model_C16</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Evaluate_and_Test_Model_C16</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Register_Model_C16</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Train_Model_C18</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Evaluate_and_Test_Model_C18</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Evaluate_and_Test_Model_C19</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Register_Model_C19</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Train_Model_C21</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Evaluate_and_Test_Model_C21</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Register_Model_C21</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Design_Model_C23</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Train_Model_C24</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Evaluate_and_Test_Model_C25</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Evaluate_and_Test_Model_C26</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Register_Model_C26</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Evaluate_and_Test_Model_C28</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Register_Model_C33</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_1</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="StartEvent_1" />
+    <bpmn:endEvent id="EndEvent_1" />
+    <bpmn:task id="Ingest_Data_C3" name="Ingest Data" />
+    <bpmn:task id="Preprocess_Data_C4" name="Preprocess Data" />
+    <bpmn:task id="Engineer_Features_C5" name="Engineer Features" />
+    <bpmn:task id="Validate_Data_C6" name="Validate Data" />
+    <bpmn:task id="Analyze_Data_C8" name="Analyze Data" />
+    <bpmn:task id="Preprocess_Data_C11" name="Preprocess Data" />
+    <bpmn:task id="Train_Model_C16" name="Train Model" />
+    <bpmn:task id="Evaluate_and_Test_Model_C16" name="Evaluate and Test Model" />
+    <bpmn:task id="Register_Model_C16" name="Register Model" />
+    <bpmn:task id="Train_Model_C18" name="Train Model" />
+    <bpmn:task id="Evaluate_and_Test_Model_C18" name="Evaluate and Test Model" />
+    <bpmn:task id="Evaluate_and_Test_Model_C19" name="Evaluate and Test Model" />
+    <bpmn:task id="Register_Model_C19" name="Register Model" />
+    <bpmn:task id="Preprocess_Data_C21" name="Preprocess Data" />
+    <bpmn:task id="Train_Model_C21" name="Train Model" />
+    <bpmn:task id="Evaluate_and_Test_Model_C21" name="Evaluate and Test Model" />
+    <bpmn:task id="Register_Model_C21" name="Register Model" />
+    <bpmn:task id="Design_Model_C23" name="Design Model" />
+    <bpmn:task id="Train_Model_C24" name="Train Model" />
+    <bpmn:task id="Evaluate_and_Test_Model_C25" name="Evaluate and Test Model" />
+    <bpmn:task id="Evaluate_and_Test_Model_C26" name="Evaluate and Test Model" />
+    <bpmn:task id="Register_Model_C26" name="Register Model" />
+    <bpmn:task id="Evaluate_and_Test_Model_C28" name="Evaluate and Test Model" />
+    <bpmn:task id="Register_Model_C33" name="Register Model" />
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="StartEvent_1" targetRef="Ingest_Data_C3" />
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Ingest_Data_C3" targetRef="Preprocess_Data_C4" />
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="Preprocess_Data_C4" targetRef="Engineer_Features_C5" />
+    <bpmn:sequenceFlow id="Flow_4" sourceRef="Engineer_Features_C5" targetRef="Validate_Data_C6" />
+    <bpmn:sequenceFlow id="Flow_5" sourceRef="Validate_Data_C6" targetRef="Analyze_Data_C8" />
+    <bpmn:sequenceFlow id="Flow_6" sourceRef="Analyze_Data_C8" targetRef="Preprocess_Data_C11" />
+    <bpmn:sequenceFlow id="Flow_7" sourceRef="Preprocess_Data_C11" targetRef="Train_Model_C16" />
+    <bpmn:sequenceFlow id="Flow_8" sourceRef="Train_Model_C16" targetRef="Evaluate_and_Test_Model_C16" />
+    <bpmn:sequenceFlow id="Flow_9" sourceRef="Evaluate_and_Test_Model_C16" targetRef="Register_Model_C16" />
+    <bpmn:sequenceFlow id="Flow_10" sourceRef="Register_Model_C16" targetRef="Train_Model_C18" />
+    <bpmn:sequenceFlow id="Flow_11" sourceRef="Train_Model_C18" targetRef="Evaluate_and_Test_Model_C18" />
+    <bpmn:sequenceFlow id="Flow_12" sourceRef="Evaluate_and_Test_Model_C18" targetRef="Evaluate_and_Test_Model_C19" />
+    <bpmn:sequenceFlow id="Flow_13" sourceRef="Evaluate_and_Test_Model_C19" targetRef="Register_Model_C19" />
+    <bpmn:sequenceFlow id="Flow_14" sourceRef="Register_Model_C19" targetRef="Preprocess_Data_C21" />
+    <bpmn:sequenceFlow id="Flow_15" sourceRef="Preprocess_Data_C21" targetRef="Train_Model_C21" />
+    <bpmn:sequenceFlow id="Flow_16" sourceRef="Train_Model_C21" targetRef="Evaluate_and_Test_Model_C21" />
+    <bpmn:sequenceFlow id="Flow_17" sourceRef="Evaluate_and_Test_Model_C21" targetRef="Register_Model_C21" />
+    <bpmn:sequenceFlow id="Flow_18" sourceRef="Register_Model_C21" targetRef="Design_Model_C23" />
+    <bpmn:sequenceFlow id="Flow_19" sourceRef="Design_Model_C23" targetRef="Train_Model_C24" />
+    <bpmn:sequenceFlow id="Flow_20" sourceRef="Train_Model_C24" targetRef="Evaluate_and_Test_Model_C25" />
+    <bpmn:sequenceFlow id="Flow_21" sourceRef="Evaluate_and_Test_Model_C25" targetRef="Evaluate_and_Test_Model_C26" />
+    <bpmn:sequenceFlow id="Flow_22" sourceRef="Evaluate_and_Test_Model_C26" targetRef="Register_Model_C26" />
+    <bpmn:sequenceFlow id="Flow_23" sourceRef="Register_Model_C26" targetRef="Evaluate_and_Test_Model_C28" />
+    <bpmn:sequenceFlow id="Flow_24" sourceRef="Evaluate_and_Test_Model_C28" targetRef="Register_Model_C33" />
+    <bpmn:sequenceFlow id="Flow_25" sourceRef="Register_Model_C33" targetRef="EndEvent_1" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="Diagram_1">
+    <bpmndi:BPMNPlane id="Plane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="Lane_1_di" bpmnElement="Lane_1" isHorizontal="true">
+        <dc:Bounds x="160" y="80" width="4280" height="160" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_2_di" bpmnElement="Lane_2" isHorizontal="true">
+        <dc:Bounds x="160" y="240" width="4280" height="160" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="170" y="142" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Ingest_Data_C3_di" bpmnElement="Ingest_Data_C3">
+        <dc:Bounds x="220" y="120" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Preprocess_Data_C4_di" bpmnElement="Preprocess_Data_C4">
+        <dc:Bounds x="380" y="120" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Engineer_Features_C5_di" bpmnElement="Engineer_Features_C5">
+        <dc:Bounds x="540" y="120" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Validate_Data_C6_di" bpmnElement="Validate_Data_C6">
+        <dc:Bounds x="700" y="120" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Analyze_Data_C8_di" bpmnElement="Analyze_Data_C8">
+        <dc:Bounds x="860" y="120" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Preprocess_Data_C11_di" bpmnElement="Preprocess_Data_C11">
+        <dc:Bounds x="1020" y="120" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Train_Model_C16_di" bpmnElement="Train_Model_C16">
+        <dc:Bounds x="1180" y="280" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Evaluate_and_Test_Model_C16_di" bpmnElement="Evaluate_and_Test_Model_C16">
+        <dc:Bounds x="1340" y="280" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Register_Model_C16_di" bpmnElement="Register_Model_C16">
+        <dc:Bounds x="1500" y="280" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Train_Model_C18_di" bpmnElement="Train_Model_C18">
+        <dc:Bounds x="1660" y="280" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Evaluate_and_Test_Model_C18_di" bpmnElement="Evaluate_and_Test_Model_C18">
+        <dc:Bounds x="1820" y="280" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Evaluate_and_Test_Model_C19_di" bpmnElement="Evaluate_and_Test_Model_C19">
+        <dc:Bounds x="1980" y="280" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Register_Model_C19_di" bpmnElement="Register_Model_C19">
+        <dc:Bounds x="2140" y="280" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Preprocess_Data_C21_di" bpmnElement="Preprocess_Data_C21">
+        <dc:Bounds x="2300" y="120" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Train_Model_C21_di" bpmnElement="Train_Model_C21">
+        <dc:Bounds x="2460" y="280" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Evaluate_and_Test_Model_C21_di" bpmnElement="Evaluate_and_Test_Model_C21">
+        <dc:Bounds x="2620" y="280" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Register_Model_C21_di" bpmnElement="Register_Model_C21">
+        <dc:Bounds x="2780" y="280" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Design_Model_C23_di" bpmnElement="Design_Model_C23">
+        <dc:Bounds x="2940" y="280" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Train_Model_C24_di" bpmnElement="Train_Model_C24">
+        <dc:Bounds x="3100" y="280" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Evaluate_and_Test_Model_C25_di" bpmnElement="Evaluate_and_Test_Model_C25">
+        <dc:Bounds x="3260" y="280" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Evaluate_and_Test_Model_C26_di" bpmnElement="Evaluate_and_Test_Model_C26">
+        <dc:Bounds x="3420" y="280" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Register_Model_C26_di" bpmnElement="Register_Model_C26">
+        <dc:Bounds x="3580" y="280" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Evaluate_and_Test_Model_C28_di" bpmnElement="Evaluate_and_Test_Model_C28">
+        <dc:Bounds x="3740" y="280" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Register_Model_C33_di" bpmnElement="Register_Model_C33">
+        <dc:Bounds x="3900" y="280" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1_di" bpmnElement="EndEvent_1">
+        <dc:Bounds x="4100" y="302" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1_di" bpmnElement="Flow_1">
+        <di:waypoint x="206" y="160" />
+        <di:waypoint x="220" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_2_di" bpmnElement="Flow_2">
+        <di:waypoint x="340" y="160" />
+        <di:waypoint x="380" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_3_di" bpmnElement="Flow_3">
+        <di:waypoint x="500" y="160" />
+        <di:waypoint x="540" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_4_di" bpmnElement="Flow_4">
+        <di:waypoint x="660" y="160" />
+        <di:waypoint x="700" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_5_di" bpmnElement="Flow_5">
+        <di:waypoint x="820" y="160" />
+        <di:waypoint x="860" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_6_di" bpmnElement="Flow_6">
+        <di:waypoint x="980" y="160" />
+        <di:waypoint x="1020" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_7_di" bpmnElement="Flow_7">
+        <di:waypoint x="1140" y="160" />
+        <di:waypoint x="1180" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_8_di" bpmnElement="Flow_8">
+        <di:waypoint x="1300" y="320" />
+        <di:waypoint x="1340" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_9_di" bpmnElement="Flow_9">
+        <di:waypoint x="1460" y="320" />
+        <di:waypoint x="1500" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_10_di" bpmnElement="Flow_10">
+        <di:waypoint x="1620" y="320" />
+        <di:waypoint x="1660" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_11_di" bpmnElement="Flow_11">
+        <di:waypoint x="1780" y="320" />
+        <di:waypoint x="1820" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_12_di" bpmnElement="Flow_12">
+        <di:waypoint x="1940" y="320" />
+        <di:waypoint x="1980" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_13_di" bpmnElement="Flow_13">
+        <di:waypoint x="2100" y="320" />
+        <di:waypoint x="2140" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_14_di" bpmnElement="Flow_14">
+        <di:waypoint x="2260" y="320" />
+        <di:waypoint x="2300" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_15_di" bpmnElement="Flow_15">
+        <di:waypoint x="2420" y="160" />
+        <di:waypoint x="2460" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_16_di" bpmnElement="Flow_16">
+        <di:waypoint x="2580" y="320" />
+        <di:waypoint x="2620" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_17_di" bpmnElement="Flow_17">
+        <di:waypoint x="2740" y="320" />
+        <di:waypoint x="2780" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_18_di" bpmnElement="Flow_18">
+        <di:waypoint x="2900" y="320" />
+        <di:waypoint x="2940" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_19_di" bpmnElement="Flow_19">
+        <di:waypoint x="3060" y="320" />
+        <di:waypoint x="3100" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_20_di" bpmnElement="Flow_20">
+        <di:waypoint x="3220" y="320" />
+        <di:waypoint x="3260" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_21_di" bpmnElement="Flow_21">
+        <di:waypoint x="3380" y="320" />
+        <di:waypoint x="3420" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_22_di" bpmnElement="Flow_22">
+        <di:waypoint x="3540" y="320" />
+        <di:waypoint x="3580" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_23_di" bpmnElement="Flow_23">
+        <di:waypoint x="3700" y="320" />
+        <di:waypoint x="3740" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_24_di" bpmnElement="Flow_24">
+        <di:waypoint x="3860" y="320" />
+        <di:waypoint x="3900" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_25_di" bpmnElement="Flow_25">
+        <di:waypoint x="4020" y="320" />
+        <di:waypoint x="4100" y="320" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

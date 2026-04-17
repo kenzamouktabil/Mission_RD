@@ -1,0 +1,57 @@
+flowchart TD
+  subgraph Plan
+    create_feature_branch[create_feature_branch]
+  end
+
+  subgraph Data_Engineer
+    explore_data[explore_data]
+  end
+
+  subgraph Model_Engineer
+    experiment_with_model_generation[experiment_with_model_generation]
+    log_experiment_runs_to_MLflow[log_experiment_runs_to_MLflow]
+    register_model_to_MLflow[register_model_to_MLflow]
+    run_prepared_workflow_for_model_training_validation_and_log_model[run_prepared_workflow_for_model_training_validation_and_log_model]
+  end
+
+  subgraph Software_Engineer
+    develop_frontend_backend[develop_frontend_backend]
+    test_model_endpoint_from_feature_branch[test_model_endpoint_from_feature_branch]
+    test_data_product_locally[test_data_product_locally]
+    open_Pull_Request_to_DEV_and_get_review[open_Pull_Request_to_DEV_and_get_review]
+    Test_deployed_Data_Product[Test_deployed_Data_Product]
+  end
+
+  subgraph Ops_Engineer
+    manually_deploy_model_to_endpoint[manually_deploy_model_to_endpoint]
+    productionize_model_training_validating_workflow[productionize_model_training_validating_workflow]
+    build_Docker_containers_for_backend_frontend[build_Docker_containers_for_backend_frontend]
+    deploy_latest_backend_frontend_version_to_Azure_Web_App[deploy_latest_backend_frontend_version_to_Azure_Web_App]
+    deploy_latest_model_to_Model_Serving_Endpoint_in_Databricks[deploy_latest_model_to_Model_Serving_Endpoint_in_Databricks]
+    switch_to_production_model_endpoints[switch_to_production_model_endpoints]
+  end
+
+  create_feature_branch --> explore_data
+  create_feature_branch --> develop_frontend_backend
+
+  explore_data --> experiment_with_model_generation
+  experiment_with_model_generation --> log_experiment_runs_to_MLflow
+  log_experiment_runs_to_MLflow --> register_model_to_MLflow
+  register_model_to_MLflow --> manually_deploy_model_to_endpoint
+  manually_deploy_model_to_endpoint --> productionize_model_training_validating_workflow
+  productionize_model_training_validating_workflow --> open_Pull_Request_to_DEV_and_get_review
+
+  develop_frontend_backend --> test_model_endpoint_from_feature_branch
+  test_model_endpoint_from_feature_branch --> test_data_product_locally
+  test_data_product_locally --> switch_to_production_model_endpoints
+  switch_to_production_model_endpoints --> open_Pull_Request_to_DEV_and_get_review
+
+  open_Pull_Request_to_DEV_and_get_review --> build_Docker_containers_for_backend_frontend
+  build_Docker_containers_for_backend_frontend --> deploy_latest_backend_frontend_version_to_Azure_Web_App
+  open_Pull_Request_to_DEV_and_get_review --> run_prepared_workflow_for_model_training_validation_and_log_model
+  run_prepared_workflow_for_model_training_validation_and_log_model --> deploy_latest_model_to_Model_Serving_Endpoint_in_Databricks
+
+  deploy_latest_backend_frontend_version_to_Azure_Web_App --> Test_deployed_Data_Product
+  deploy_latest_model_to_Model_Serving_Endpoint_in_Databricks --> Test_deployed_Data_Product
+
+  Test_deployed_Data_Product --> create_feature_branch

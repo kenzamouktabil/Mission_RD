@@ -134,3 +134,98 @@ def generate_mermaid_from_file(nom_fichier: str) -> str:
 
     print(f"Mermaid diagram saved to {output_file}")
     return mermaid_code 
+
+
+import base64
+def generate_mermaid_from_image(image_path: str, image_name: str) -> str:
+    PROJECT_ROOT = Path(__file__).resolve().parent.parent
+    load_dotenv(dotenv_path=PROJECT_ROOT / ".env")
+
+    key = os.getenv("OPENAI_API_KEY")
+    if not key:
+        raise ValueError("OPENAI_API_KEY non trouvé dans .env")
+
+    client = OpenAI(api_key=key)
+
+    with open(image_path, "rb") as f:
+        image_data = base64.b64encode(f.read()).decode()
+
+    ext = Path(image_path).suffix.lower()
+    mime_map = {".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".webp": "image/webp"}
+    mime_type = mime_map.get(ext, "image/png")
+
+    prompt = '''
+You are an AI specialized in reading process diagrams from images.
+
+INPUT:
+An image showing a process diagram (flowchart, BPMN, pipeline, or any visual process).
+
+TASK — TWO PHASES:
+
+PHASE 1: FAITHFUL TRANSCRIPTION
+- Read EVERY box, node, and step visible in the image.
+- Keep the EXACT text written inside each box as the activity name.
+- Do NOT rename, rephrase, merge, or reinterpret any activity.
+- Follow the EXACT arrows and connections shown in the image.
+- If the image shows "Search Online Resources for MLOps Systems", the node name must be exactly that (with underscores replacing spaces).
+
+PHASE 2: LANE ASSIGNMENT ONLY
+- Assign each activity (with its original name preserved) to ONE of these SkeltyMLOps lanes:
+  - Plan: project planning, requirements, research design, study design
+  - Data_Engineer: data collection, preprocessing, dataset preparation, data analysis
+  - Model_Engineer: model design, training, evaluation, experiments, hypothesis testing
+  - Software_Engineer: code development, API, packaging, testing software
+  - Ops_Engineer: deployment, monitoring, CI/CD, infrastructure, publishing
+- If a lane has no activity, OMIT it.
+- Do NOT rename activities during lane assignment. Keep original names.
+
+CRITICAL RULES:
+- The NUMBER of activities in your output must MATCH the number of boxes in the image.
+- The FLOW ORDER must match the arrows in the image.
+- Do NOT add activities that are not visible in the image.
+- Do NOT remove activities that are visible in the image.
+- Do NOT merge two separate boxes into one node.
+- Node identifiers: replace spaces with underscores, remove special characters.
+  Example: "Apply Inclusion-Exclusion Criteria" becomes Apply_Inclusion_Exclusion_Criteria
+- Document/data artifacts (shown as document icons or dashed arrows) should NOT become nodes. Only process boxes become nodes.
+
+OUTPUT FORMAT:
+Return ONLY valid Mermaid code (flowchart TD) with subgraphs for lanes.
+Do NOT add explanations, comments, or markdown fences.
+Return ONLY the Mermaid code.
+'''
+
+    messages = [
+        {"role": "system", "content": "You are an AI that faithfully transcribes process diagrams."},
+        {"role": "user", "content": [
+            {"type": "text", "text": prompt},
+            {"type": "image_url", "image_url": {
+                "url": f"data:{mime_type};base64,{image_data}"
+            }}
+        ]}
+    ]
+
+    output_file = PROJECT_ROOT / "processes_mermaid" / f"{image_name}_mermaid.mmd"
+    output_file.parent.mkdir(exist_ok=True)
+
+    if output_file.exists():
+        with open(output_file, "r", encoding="utf-8") as f:
+            return f.read()
+
+    response = client.chat.completions.create(
+        model="gpt-5-mini",
+        messages=messages,
+        seed=42,
+    )
+
+    mermaid_code = response.choices[0].message.content
+
+    if mermaid_code.strip().startswith("```"):
+        lines = mermaid_code.strip().splitlines()
+        mermaid_code = "\n".join(lines[1:-1] if lines[-1].strip() == "```" else lines[1:])
+
+    with open(output_file, "w", encoding="utf-8") as f:
+        f.write(mermaid_code)
+
+    print(f"Mermaid diagram saved to {output_file}")
+    return mermaid_code

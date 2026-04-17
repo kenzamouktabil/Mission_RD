@@ -1,0 +1,10 @@
+flowchart TD
+  subgraph Data_Engineer
+    Data_Preparation[Data_Preparation]
+  end
+  subgraph Model_Engineer
+    Model_training[Model_training]
+    Model_tuning[Model_tuning]
+    Performance_Evaluation[Performance_Evaluation]
+  end
+  Data_Preparation --> Model_training --> Model_tuning --> Performance_Evaluation

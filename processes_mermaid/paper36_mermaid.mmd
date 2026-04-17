@@ -1,0 +1,16 @@
+flowchart TD
+  subgraph Plan
+    1_Automated_Initial_Search[1_Automated_Initial_Search]
+  end
+  subgraph Data_Engineer
+    2_Paper_Selection[2_Paper_Selection]
+    3_Data_Extraction[3_Data_Extraction]
+    4_Snowballing[4_Snowballing]
+    5_Data_Synthesis[5_Data_Synthesis]
+  end
+
+  1_Automated_Initial_Search -->|39| 2_Paper_Selection
+  2_Paper_Selection -->|18| 3_Data_Extraction
+  3_Data_Extraction -->|43| 5_Data_Synthesis
+  3_Data_Extraction -->|25| 4_Snowballing
+  4_Snowballing --> 3_Data_Extraction

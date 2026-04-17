@@ -1,0 +1,221 @@
+<?xml version='1.0' encoding='utf-8'?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn">
+  <bpmn:process id="Process_1" isExecutable="false">
+    <bpmn:laneSet id="LaneSet_1">
+      <bpmn:lane id="Lane_1" name="Plan">
+        <bpmn:flowNodeRef>StartEvent_1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>create_feature_branch</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_2" name="Data Engineer">
+        <bpmn:flowNodeRef>explore_data</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_3" name="Model Engineer">
+        <bpmn:flowNodeRef>experiment_with_model_generation</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>log_experiment_runs_to_MLflow</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>register_model_to_MLflow</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>run_prepared_workflow_for_model_training_validation_and_log_model</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_4" name="Software Engineer">
+        <bpmn:flowNodeRef>develop_frontend_backend</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>test_model_endpoint_from_feature_branch</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>test_data_product_locally</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>open_Pull_Request_to_DEV_and_get_review</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Test_deployed_Data_Product</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_5" name="Ops Engineer">
+        <bpmn:flowNodeRef>manually_deploy_model_to_endpoint</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>productionize_model_training_validating_workflow</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>build_Docker_containers_for_backend_frontend</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>deploy_latest_backend_frontend_version_to_Azure_Web_App</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>deploy_latest_model_to_Model_Serving_Endpoint_in_Databricks</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>switch_to_production_model_endpoints</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_1</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="StartEvent_1" />
+    <bpmn:endEvent id="EndEvent_1" />
+    <bpmn:task id="create_feature_branch" name="create_feature_branch" />
+    <bpmn:task id="explore_data" name="explore_data" />
+    <bpmn:task id="develop_frontend_backend" name="develop_frontend_backend" />
+    <bpmn:task id="experiment_with_model_generation" name="experiment_with_model_generation" />
+    <bpmn:task id="test_model_endpoint_from_feature_branch" name="test_model_endpoint_from_feature_branch" />
+    <bpmn:task id="log_experiment_runs_to_MLflow" name="log_experiment_runs_to_MLflow" />
+    <bpmn:task id="test_data_product_locally" name="test_data_product_locally" />
+    <bpmn:task id="register_model_to_MLflow" name="register_model_to_MLflow" />
+    <bpmn:task id="switch_to_production_model_endpoints" name="switch_to_production_model_endpoints" />
+    <bpmn:task id="manually_deploy_model_to_endpoint" name="manually_deploy_model_to_endpoint" />
+    <bpmn:task id="open_Pull_Request_to_DEV_and_get_review" name="open_Pull_Request_to_DEV_and_get_review" />
+    <bpmn:task id="productionize_model_training_validating_workflow" name="productionize_model_training_validating_workflow" />
+    <bpmn:task id="build_Docker_containers_for_backend_frontend" name="build_Docker_containers_for_backend_frontend" />
+    <bpmn:task id="run_prepared_workflow_for_model_training_validation_and_log_model" name="run_prepared_workflow_for_model_training_validation_and_log_model" />
+    <bpmn:task id="deploy_latest_backend_frontend_version_to_Azure_Web_App" name="deploy_latest_backend_frontend_version_to_Azure_Web_App" />
+    <bpmn:task id="deploy_latest_model_to_Model_Serving_Endpoint_in_Databricks" name="deploy_latest_model_to_Model_Serving_Endpoint_in_Databricks" />
+    <bpmn:task id="Test_deployed_Data_Product" name="Test_deployed_Data_Product" />
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="StartEvent_1" targetRef="create_feature_branch" />
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="create_feature_branch" targetRef="explore_data" />
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="explore_data" targetRef="develop_frontend_backend" />
+    <bpmn:sequenceFlow id="Flow_4" sourceRef="develop_frontend_backend" targetRef="experiment_with_model_generation" />
+    <bpmn:sequenceFlow id="Flow_5" sourceRef="experiment_with_model_generation" targetRef="test_model_endpoint_from_feature_branch" />
+    <bpmn:sequenceFlow id="Flow_6" sourceRef="test_model_endpoint_from_feature_branch" targetRef="log_experiment_runs_to_MLflow" />
+    <bpmn:sequenceFlow id="Flow_7" sourceRef="log_experiment_runs_to_MLflow" targetRef="test_data_product_locally" />
+    <bpmn:sequenceFlow id="Flow_8" sourceRef="test_data_product_locally" targetRef="register_model_to_MLflow" />
+    <bpmn:sequenceFlow id="Flow_9" sourceRef="register_model_to_MLflow" targetRef="switch_to_production_model_endpoints" />
+    <bpmn:sequenceFlow id="Flow_10" sourceRef="switch_to_production_model_endpoints" targetRef="manually_deploy_model_to_endpoint" />
+    <bpmn:sequenceFlow id="Flow_11" sourceRef="manually_deploy_model_to_endpoint" targetRef="open_Pull_Request_to_DEV_and_get_review" />
+    <bpmn:sequenceFlow id="Flow_12" sourceRef="open_Pull_Request_to_DEV_and_get_review" targetRef="productionize_model_training_validating_workflow" />
+    <bpmn:sequenceFlow id="Flow_13" sourceRef="productionize_model_training_validating_workflow" targetRef="build_Docker_containers_for_backend_frontend" />
+    <bpmn:sequenceFlow id="Flow_14" sourceRef="build_Docker_containers_for_backend_frontend" targetRef="run_prepared_workflow_for_model_training_validation_and_log_model" />
+    <bpmn:sequenceFlow id="Flow_15" sourceRef="run_prepared_workflow_for_model_training_validation_and_log_model" targetRef="deploy_latest_backend_frontend_version_to_Azure_Web_App" />
+    <bpmn:sequenceFlow id="Flow_16" sourceRef="deploy_latest_backend_frontend_version_to_Azure_Web_App" targetRef="deploy_latest_model_to_Model_Serving_Endpoint_in_Databricks" />
+    <bpmn:sequenceFlow id="Flow_17" sourceRef="deploy_latest_model_to_Model_Serving_Endpoint_in_Databricks" targetRef="Test_deployed_Data_Product" />
+    <bpmn:sequenceFlow id="Flow_18" sourceRef="Test_deployed_Data_Product" targetRef="EndEvent_1" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="Diagram_1">
+    <bpmndi:BPMNPlane id="Plane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="Lane_1_di" bpmnElement="Lane_1" isHorizontal="true">
+        <dc:Bounds x="160" y="80" width="3160" height="160" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_2_di" bpmnElement="Lane_2" isHorizontal="true">
+        <dc:Bounds x="160" y="240" width="3160" height="160" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_3_di" bpmnElement="Lane_3" isHorizontal="true">
+        <dc:Bounds x="160" y="400" width="3160" height="160" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_4_di" bpmnElement="Lane_4" isHorizontal="true">
+        <dc:Bounds x="160" y="560" width="3160" height="160" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_5_di" bpmnElement="Lane_5" isHorizontal="true">
+        <dc:Bounds x="160" y="720" width="3160" height="160" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="170" y="142" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="create_feature_branch_di" bpmnElement="create_feature_branch">
+        <dc:Bounds x="220" y="120" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="explore_data_di" bpmnElement="explore_data">
+        <dc:Bounds x="380" y="280" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="develop_frontend_backend_di" bpmnElement="develop_frontend_backend">
+        <dc:Bounds x="540" y="600" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="experiment_with_model_generation_di" bpmnElement="experiment_with_model_generation">
+        <dc:Bounds x="700" y="440" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="test_model_endpoint_from_feature_branch_di" bpmnElement="test_model_endpoint_from_feature_branch">
+        <dc:Bounds x="860" y="600" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="log_experiment_runs_to_MLflow_di" bpmnElement="log_experiment_runs_to_MLflow">
+        <dc:Bounds x="1020" y="440" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="test_data_product_locally_di" bpmnElement="test_data_product_locally">
+        <dc:Bounds x="1180" y="600" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="register_model_to_MLflow_di" bpmnElement="register_model_to_MLflow">
+        <dc:Bounds x="1340" y="440" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="switch_to_production_model_endpoints_di" bpmnElement="switch_to_production_model_endpoints">
+        <dc:Bounds x="1500" y="760" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="manually_deploy_model_to_endpoint_di" bpmnElement="manually_deploy_model_to_endpoint">
+        <dc:Bounds x="1660" y="760" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="open_Pull_Request_to_DEV_and_get_review_di" bpmnElement="open_Pull_Request_to_DEV_and_get_review">
+        <dc:Bounds x="1820" y="600" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="productionize_model_training_validating_workflow_di" bpmnElement="productionize_model_training_validating_workflow">
+        <dc:Bounds x="1980" y="760" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="build_Docker_containers_for_backend_frontend_di" bpmnElement="build_Docker_containers_for_backend_frontend">
+        <dc:Bounds x="2140" y="760" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="run_prepared_workflow_for_model_training_validation_and_log_model_di" bpmnElement="run_prepared_workflow_for_model_training_validation_and_log_model">
+        <dc:Bounds x="2300" y="440" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="deploy_latest_backend_frontend_version_to_Azure_Web_App_di" bpmnElement="deploy_latest_backend_frontend_version_to_Azure_Web_App">
+        <dc:Bounds x="2460" y="760" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="deploy_latest_model_to_Model_Serving_Endpoint_in_Databricks_di" bpmnElement="deploy_latest_model_to_Model_Serving_Endpoint_in_Databricks">
+        <dc:Bounds x="2620" y="760" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Test_deployed_Data_Product_di" bpmnElement="Test_deployed_Data_Product">
+        <dc:Bounds x="2780" y="600" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1_di" bpmnElement="EndEvent_1">
+        <dc:Bounds x="2980" y="782" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1_di" bpmnElement="Flow_1">
+        <di:waypoint x="206" y="160" />
+        <di:waypoint x="220" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_2_di" bpmnElement="Flow_2">
+        <di:waypoint x="340" y="160" />
+        <di:waypoint x="380" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_3_di" bpmnElement="Flow_3">
+        <di:waypoint x="500" y="320" />
+        <di:waypoint x="540" y="640" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_4_di" bpmnElement="Flow_4">
+        <di:waypoint x="660" y="640" />
+        <di:waypoint x="700" y="480" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_5_di" bpmnElement="Flow_5">
+        <di:waypoint x="820" y="480" />
+        <di:waypoint x="860" y="640" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_6_di" bpmnElement="Flow_6">
+        <di:waypoint x="980" y="640" />
+        <di:waypoint x="1020" y="480" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_7_di" bpmnElement="Flow_7">
+        <di:waypoint x="1140" y="480" />
+        <di:waypoint x="1180" y="640" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_8_di" bpmnElement="Flow_8">
+        <di:waypoint x="1300" y="640" />
+        <di:waypoint x="1340" y="480" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_9_di" bpmnElement="Flow_9">
+        <di:waypoint x="1460" y="480" />
+        <di:waypoint x="1500" y="800" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_10_di" bpmnElement="Flow_10">
+        <di:waypoint x="1620" y="800" />
+        <di:waypoint x="1660" y="800" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_11_di" bpmnElement="Flow_11">
+        <di:waypoint x="1780" y="800" />
+        <di:waypoint x="1820" y="640" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_12_di" bpmnElement="Flow_12">
+        <di:waypoint x="1940" y="640" />
+        <di:waypoint x="1980" y="800" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_13_di" bpmnElement="Flow_13">
+        <di:waypoint x="2100" y="800" />
+        <di:waypoint x="2140" y="800" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_14_di" bpmnElement="Flow_14">
+        <di:waypoint x="2260" y="800" />
+        <di:waypoint x="2300" y="480" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_15_di" bpmnElement="Flow_15">
+        <di:waypoint x="2420" y="480" />
+        <di:waypoint x="2460" y="800" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_16_di" bpmnElement="Flow_16">
+        <di:waypoint x="2580" y="800" />
+        <di:waypoint x="2620" y="800" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_17_di" bpmnElement="Flow_17">
+        <di:waypoint x="2740" y="800" />
+        <di:waypoint x="2780" y="640" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_18_di" bpmnElement="Flow_18">
+        <di:waypoint x="2900" y="640" />
+        <di:waypoint x="2980" y="800" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

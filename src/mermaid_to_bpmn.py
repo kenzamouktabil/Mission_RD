@@ -15,7 +15,6 @@ NS = {
 for prefix, uri in NS.items():
     ET.register_namespace(prefix, uri)
 
-
 def parse_mermaid(mermaid_code: str):
     """
     Parse Mermaid flowchart with subgraphs and return:
@@ -23,15 +22,22 @@ def parse_mermaid(mermaid_code: str):
       - nodes: dict {node_id: display_label}
       - edges: list of (source_id, target_id)
     """
-    lanes = {}        # lane_name -> list of node_ids
-    nodes = {}        # node_id -> label
-    edges = []        # (source, target)
+    lanes = {}
+    nodes = {}
+    edges = []
 
     current_lane = None
-    # Regex: node definition like   Ingest_Data_C3["Ingest Data"]   or   Ingest_Data_C3[Ingest Data]
-    node_def_re = re.compile(r'(\w+)\s*\[\s*"?([^"\]]+)"?\s*\]')
-    # Regex: subgraph header   subgraph Data_Engineer   or   subgraph Data_Engineer["Data Engineer"]
+
+    # Regex: node definition like  Ingest_Data_C3["Ingest Data"]  or  Ingest_Data_C3[Ingest Data]
+    # Also handles labels with special chars inside quotes: 1_Auto["1) Automated Initial Search"]
+    node_def_re = re.compile(r'(\w+)\s*\[\s*"([^"]+)"\s*\]')
+    node_def_re2 = re.compile(r'(\w+)\s*\[([^\]"]+)\]')
+
+    # Regex: subgraph header
     subgraph_re = re.compile(r'subgraph\s+(\w+)')
+
+    # Regex: edge with optional label  A -->|"label"| B  or  A --> B
+    edge_re = re.compile(r'(\w+)\s*-->(?:\s*\|[^|]*\|\s*)?(\w+)')
 
     for raw_line in mermaid_code.splitlines():
         line = raw_line.strip()
@@ -48,25 +54,65 @@ def parse_mermaid(mermaid_code: str):
         if line == "end":
             current_lane = None
             continue
+        # Capture bare node names in subgraphs (no brackets)
+        if current_lane and re.match(r'^(\w+)$', line):
+            nid = line
+            safe = f"Task_{nid}" if nid[0].isdigit() else nid
+            if safe not in nodes:
+                lanes[current_lane].append(safe)
+        # Extract node definitions (try quoted first, then unquoted)
+        found_nodes = node_def_re.findall(line)
+        if not found_nodes:
+            found_nodes = node_def_re2.findall(line)
 
-        # Extract any node definitions on the line
-        for node_id, label in node_def_re.findall(line):
+        for node_id, label in found_nodes:
             if node_id not in nodes:
                 nodes[node_id] = label.strip()
                 if current_lane:
                     lanes[current_lane].append(node_id)
 
-        # Extract edges:  A --> B --> C  (chained)
-        if "-->" in line:
-            # Remove bracketed labels so we can split cleanly
-            clean = re.sub(r'\[[^\]]*\]', '', line)
-            parts = [p.strip() for p in clean.split("-->")]
-            parts = [p for p in parts if p and re.match(r'^\w+$', p)]
-            for src, tgt in zip(parts, parts[1:]):
+        # Extract edges (handles -->|"label"| syntax)
+        for src, tgt in edge_re.findall(line):
+            if src in nodes or tgt in nodes:
                 edges.append((src, tgt))
 
-    return lanes, nodes, edges
+        # Also handle chained edges without labels: A --> B --> C
+        if "-->" in line and "|" not in line:
+            clean = re.sub(r'\[[^\]]*\]', '', line)
+            clean = re.sub(r'"[^"]*"', '', clean)
+            parts = [p.strip() for p in clean.split("-->")]
+            parts = [p for p in parts if p and re.match(r'^\w+$', p)]
+            if len(parts) >= 2:
+                for s, t in zip(parts, parts[1:]):
+                    if (s, t) not in edges:
+                        edges.append((s, t))
+# Auto-register nodes that appear in edges but were never defined with brackets
+    for src, tgt in edges:
+        if src not in nodes and src not in ("Start", "End", "Finish"):
+            nodes[src] = src.replace("_", " ")
+            # Assign to a lane if possible
+            for lane, node_list in lanes.items():
+                if src in node_list:
+                    break
+        if tgt not in nodes and tgt not in ("Start", "End", "Finish"):
+            nodes[tgt] = tgt.replace("_", " ")
 
+    # Also register nodes listed in subgraphs but without brackets
+    for lane, node_list in lanes.items():
+        for nid in node_list:
+            safe = f"Task_{nid}" if nid[0].isdigit() else nid
+            if safe not in nodes and nid not in ("Start", "End", "Finish"):
+                nodes[safe] = nid.replace("_", " ")
+
+    # Remove Start/End/Finish from nodes (our script adds its own events)
+    for skip in ("Start", "End", "Finish"):
+        nodes.pop(skip, None)
+        for lane in lanes.values():
+            if skip in lane:
+                lane.remove(skip)
+    edges = [(s, t) for s, t in edges if s not in ("Start", "End", "Finish") and t not in ("Start", "End", "Finish")]
+
+    return lanes, nodes, edges
 
 def build_bpmn(lanes, nodes, edges) -> str:
     """
@@ -97,6 +143,9 @@ def build_bpmn(lanes, nodes, edges) -> str:
         if n not in seen:
             ordered.append(n)
 
+    # Remove any node that's not in the nodes dict (e.g., "Start", "End" from Mermaid)
+    ordered = [nid for nid in ordered if nid in nodes]
+
     # --- Create IDs ---
     start_id = "StartEvent_1"
     end_id = "EndEvent_1"
@@ -123,15 +172,21 @@ def build_bpmn(lanes, nodes, edges) -> str:
         x_positions[nid] = X_START + i * 160
     x_positions[end_id] = X_START + len(ordered) * 160 + 40
 
-    # --- Assign lane of each node ---
+# --- Assign lane of each node ---
     node_lane = {}
     for lane, node_list in lanes.items():
         for nid in node_list:
             node_lane[nid] = lane
-    # Start and End go in the first lane (or a dummy one if no lanes)
     lane_names = list(lanes.keys()) if lanes else ["Default"]
     node_lane[start_id] = lane_names[0]
     node_lane[end_id] = lane_names[-1]
+
+    # Assign orphan nodes (in nodes dict but not in any lane) to last lane
+    for nid in ordered:
+        if nid not in node_lane:
+            node_lane[nid] = lane_names[-1]
+            if nid not in lanes[lane_names[-1]]:
+                lanes[lane_names[-1]].append(nid)
 
     # --- Assign y per lane ---
     lane_y = {name: 80 + i * LANE_H for i, name in enumerate(lane_names)}
