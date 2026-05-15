@@ -1,0 +1,24 @@
+# MLOps Diagram Harvester — dépendances Python
+# Installez avec : pip install -r requirements.txt
+
+# Requêtes HTTP
+requests>=2.31.0
+
+# Parsing et extraction PDF
+PyMuPDF>=1.23.0          # fitz — extraction d'images et de texte depuis les PDFs
+
+# Manipulation Word et Excel
+python-docx>=1.1.0
+openpyxl        # Lecture/écriture fichiers Excel
+lxml>=4.9.0              # requis par python-docx pour l'XML avancé
+
+# Traitement d'images
+Pillow>=10.0.0
+
+# Barre de progression (optionnel mais sympa)
+tqdm>=4.65.0
+
+# API Anthropic (optionnel — classification IA)
+# Nécessite : export ANTHROPIC_API_KEY="sk-ant-..."
+anthropic>=0.30.0
+openai>=1.0.0
